@@ -30,6 +30,18 @@
 */
 
 //Code Here
+class Employee {
+  constructor(fn,ln,email,age){
+    this.first_name = fn;
+    this.last_name = ln;
+    this.email = email;
+    this.age = age;
+  }
+  makeWidget(){
+    return `${this.first_name} ${this.last_name} Widget`
+  }
+}
+
 
 
 
@@ -50,6 +62,24 @@
 */
 
 //Code Here
+
+class manager extends Employee{
+  constructor(fn,ln,email,age){
+    super(fn,ln,email,age);
+    this.reports = [];
+  }
+
+  hire = employee => {
+    this.reports.push(employee);
+  }
+
+  fire = index => {
+    this.reports.splice(i,1);
+  }
+
+}
+
+var a = new manager("Trevor", "Scheurer", "ijsdfksd@k.co", 24);
 
 
 
@@ -76,6 +106,37 @@
 */
 
 //Code Here
+
+class ProgressiveManager extends manager{
+  constructor(fn,ln,email,age){
+    super(fn,ln,email,age);
+    this.title = 'Not a manager';
+    this.bonus = 0;
+  }
+
+  hire = employee => {
+    this.reports.push(employee);
+    if(reports.length == 0){
+      this.title = "Not a manager";
+    }else if(reports.length>=1 && reports.length<=3){
+      this.title = "Barely Manager"
+    }else if(reports.length>=4 && reports.length<=10){
+      this.title = "Mostly Manager"
+    }else if(reports.length>=11 && reports.length<=50){
+      this.title = "Manager"
+    }else if(reports.length>=51 && reports.length<=100){
+      this.title = "Manager Plus"
+    }else{
+      this.tile = "Bestest Manager"
+    }
+  }
+
+  fire = employee => {
+    this.reports.splice(i,1);
+    this.bonus +=100;
+  }
+
+}
 
 
 
@@ -104,4 +165,33 @@
 
 //Code Here
 
+class Machine{
+  constructor() {
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
+    this.underlying_counter = 0;
+  }
+
+  makeWidgets = n => {
+    this.widgets_made_count +=1;
+    if(this.underlying_counter == 50){
+      this.wear_and_tear_count +=1;
+      this.underlying_counter = 0;
+      return;
+    }
+    this.underlying_counter++;
+  }
+
+  fixMachine = () => {
+    this.needs_reboot = true;
+  }
+
+  reboot = (cb) => {
+    this.wear_and_tear_count -= 10;
+    this.needs_reboot = false;
+    return cb;
+  }
+
+}
 
