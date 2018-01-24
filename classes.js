@@ -69,11 +69,11 @@ class manager extends Employee{
     this.reports = [];
   }
 
-  hire = employee => {
+  hire(employee){
     this.reports.push(employee);
   }
 
-  fire = index => {
+  fire(index){
     this.reports.splice(i,1);
   }
 
@@ -114,7 +114,7 @@ class ProgressiveManager extends manager{
     this.bonus = 0;
   }
 
-  hire = employee => {
+  hire(employee){
     this.reports.push(employee);
     if(reports.length == 0){
       this.title = "Not a manager";
@@ -131,7 +131,7 @@ class ProgressiveManager extends manager{
     }
   }
 
-  fire = employee => {
+  fire(employee){
     this.reports.splice(i,1);
     this.bonus +=100;
   }
@@ -173,24 +173,19 @@ class Machine{
     this.underlying_counter = 0;
   }
 
-  makeWidgets = n => {
-    this.widgets_made_count +=1;
-    if(this.underlying_counter == 50){
-      this.wear_and_tear_count +=1;
-      this.underlying_counter = 0;
-      return;
-    }
-    this.underlying_counter++;
+  makeWidgets(n){
+    this.widgets_made_count +=n;
+    this.wear_and_tear_count = this.widgets_made_count/50;  
   }
 
-  fixMachine = () => {
+  fixMachine() {
     this.needs_reboot = true;
   }
 
-  reboot = (cb) => {
-    this.wear_and_tear_count -= 10;
-    this.needs_reboot = false;
-    return cb;
+  reboot() {    
+      this.wear_and_tear_count -=10;
+      this.needs_reboot = false;
+      return function cb(){};
   }
 
 }
